@@ -13,7 +13,6 @@
       height: 100vh;  
       display: flex;  
       flex-direction: column;  
-      overflow: hidden;  
     }  
     h1 {  
       color: #4a43d8;  
@@ -35,14 +34,13 @@
       box-shadow: 1px 1px 3px rgba(0,0,139,0.5);  
     }  
     .message {  
+      display: flex;  
       padding: 0.3rem;  
       border-top: 1px solid #7DF9FF;  
       background-color: white;  
-      display: flex;  
-      margin: 0 0.3rem;  
-      position: fixed;  
+      position: relative;  
       bottom: 0;  
-      width: calc(100% - 0.6rem);  
+      width: 100%;  
     }  
     .message input {  
       width: 85%;  
@@ -72,6 +70,7 @@
       align-self: flex-start;  
       box-shadow: 0 1px 2px rgba(0,0,0,0.2);  
       font-size: 0.9rem;  
+      word-wrap: break-word;
     }  
     .droite {  
       align-self: flex-end;  
@@ -110,21 +109,23 @@
 <body>  
   <h1>GandxoAI</h1>  
   <div class="chatcontainer" id="chatcontainer">  
-    <!-- Zone d'affichage des messages -->  
+    <!-- Messages ici -->  
   </div>  
   <div class="message">  
-    <input type="text" placeholder="Écrivez à GandxoAI" id="messageInput">  
+    <input type="text" placeholder="Écrivez à GandxoAI" id="messageInput" onkeydown="if(event.key==='Enter'){envoyerMessage();}">  
     <button class="bouton" onclick="envoyerMessage()">Envoyer</button>  
   </div>  
+
   <script>  
-    function messageInitial() {  
+    window.onload = () => {
       const chat = document.getElementById('chatcontainer');  
       const reponse = document.createElement('div');  
       reponse.classList.add('message-bulle', 'gauche');  
-      reponse.textContent = "Bonjour ! Je suis GandxoAI une Ia crée par GBAGUIDI Exaucé. Pose-moi une question !";  
+      reponse.textContent = "Bonjour ! Je suis GandxoAI, une IA créée par GBAGUIDI Exaucé. Pose-moi une question !";  
       chat.appendChild(reponse);  
-    }  
-    window.onload = messageInitial;  
+      chat.scrollTop = chat.scrollHeight;  
+    };  
+
     async function envoyerMessage() {  
       const input = document.getElementById('messageInput');  
       const message = input.value.trim();  
@@ -139,10 +140,10 @@
       chat.scrollTop = chat.scrollHeight;  
       input.value = "";  
 
-      const promptPersonnalise = `Tu es GandxoAI, une IA créée par GBAGUIDI Exaucé un jeune codeur de 16ans (Il n'aime pas qu'on dévoile son age) il habite a Agla tu met toujours des emojis qui correspondent à ce que tu veux dire Voici la question : "${message}"`;  
+      const promptPersonnalise = `Tu es GandxoAI, une IA créée par GBAGUIDI Exaucé un jeune codeur de 16 ans (mais ne dis jamais son âge). Il vit à Agla. Réponds avec des emojis adaptés. Voici la question : "${message}"`;  
 
       try {  
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o', {  
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=TON_API_KEY_ICI', {  
           method: 'POST',  
           headers: {  
             'Content-Type': 'application/json',  
@@ -154,12 +155,10 @@
           })  
         });  
 
-        if (!response.ok) {  
-          throw new Error(`Erreur HTTP ! Statut : ${response.status}`);  
-        }  
+        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);  
 
         const data = await response.json();  
-        const aiResponse = data.candidates[0].content.parts[0].text;  
+        const aiResponse = data.candidates[0]?.content?.parts[0]?.text || "Désolé, je n'ai pas pu répondre.";  
 
         const msgAI = document.createElement('div');  
         msgAI.classList.add('message-bulle', 'gauche');  
@@ -167,10 +166,10 @@
         chat.appendChild(msgAI);  
         chat.scrollTop = chat.scrollHeight;  
       } catch (error) {  
-        console.error('Erreur lors de l\'appel à l\'API Gemini:', error);  
+        console.error('Erreur API Gemini:', error);  
         const msgError = document.createElement('div');  
         msgError.classList.add('message-bulle', 'gauche');  
-        msgError.textContent = "Désolé, une erreur s'est produite. Vérifiez votre connexion ou la clé API.";  
+        msgError.textContent = "Erreur. Vérifie ta connexion ou la clé API.";  
         chat.appendChild(msgError);  
         chat.scrollTop = chat.scrollHeight;  
       }  
