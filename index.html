@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GandxoAI</title>
   <style>
     :root {
@@ -11,7 +10,6 @@
       --couleur-secondaire: #7DF9FF;
       --fond-sombre: #121a2c;
     }
-
     body {
       background-color: var(--fond-sombre);
       font-family: Arial, sans-serif;
@@ -21,7 +19,6 @@
       display: flex;
       flex-direction: column;
     }
-
     h1 {
       color: var(--couleur-principale);
       text-align: center;
@@ -30,7 +27,6 @@
       margin: 15px;
       border-radius: 40px;
     }
-
     .chat-container {
       flex: 1;
       padding: 15px;
@@ -43,7 +39,6 @@
       background: rgba(255, 255, 255, 0.05);
       gap: 12px;
     }
-
     .input-container {
       display: flex;
       gap: 10px;
@@ -52,7 +47,6 @@
       position: sticky;
       bottom: 0;
     }
-
     .input-container input {
       flex: 1;
       padding: 12px;
@@ -61,7 +55,6 @@
       border-radius: 25px;
       background: white;
     }
-
     .bouton {
       padding: 12px 25px;
       background: var(--couleur-principale);
@@ -71,11 +64,9 @@
       cursor: pointer;
       transition: opacity 0.3s;
     }
-
     .bouton:hover {
       opacity: 0.9;
     }
-
     .message-bulle {
       padding: 12px 18px;
       margin: 5px 0;
@@ -84,46 +75,44 @@
       word-break: break-word;
       animation: fadeIn 0.3s ease;
     }
-
     .droite {
       align-self: flex-end;
       background: white;
       color: var(--couleur-principale);
       border: 2px solid var(--couleur-principale);
     }
-
     .gauche {
       align-self: flex-start;
       background: var(--couleur-principale);
       color: white;
     }
-
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-
     @media (max-width: 600px) {
       h1 {
         font-size: 1.5rem;
         margin: 10px;
       }
-
       .chat-container {
         margin: 0 10px 10px;
         padding: 10px;
       }
-
       .message-bulle {
         max-width: 90%;
         font-size: 14px;
       }
-
       .input-container {
         flex-wrap: wrap;
         padding: 10px;
       }
-
       .bouton {
         width: 100%;
       }
@@ -134,78 +123,77 @@
   <h1>GandxoAI</h1>
   <div class="chat-container" id="chatcontainer"></div>
   <div class="input-container">
-    <input type="text" placeholder="Écrivez à GandxoAI" id="messageInput" autocomplete="off">
+    <input type="text" placeholder="Écrivez à GandxoAI" id="messageInput" autocomplete="off" />
     <button class="bouton" onclick="envoyerMessage()">Envoyer</button>
   </div>
 
   <script>
-  function messageInitial() {
-    const chat = document.getElementById('chatcontainer');
-    const reponse = document.createElement('div');
-    reponse.classList.add('message-bulle', 'gauche');
-    reponse.textContent = "Bonjour ! Je suis GandxoAI, une IA créée par GBAGUIDI Exaucé. Posez-moi une question !👽💙";
-    chat.appendChild(reponse);
-  }
-
-  document.getElementById('messageInput').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') envoyerMessage();
-  });
-
-  async function envoyerMessage() {
-    const input = document.getElementById('messageInput');
-    const message = input.value.trim();
-    const chat = document.getElementById('chatcontainer');
-
-    if (!message) return;
-
-    // Message utilisateur
-    const msgUser = document.createElement('div');
-    msgUser.classList.add('message-bulle', 'droite');
-    msgUser.textContent = message;
-    chat.appendChild(msgUser);
-
-    input.value = '';
-    input.focus();
-
-    try {
-      const prompt = `Tu es GandxoAI, une IA créée par GBAGUIDI Exaucé. Réponds de manière concise et utilise des emojis quand c'est pertinent. Question : "${message}"`;
-
-      const response = await fetch(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{
-              role: 'user',
-              parts: [{ text: prompt }]
-            }]
-          })
-        }
-      );
-
-      const data = await response.json();
-      console.log(data); // pour le debug
-
-      const reponseIA = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Désolé, je n'ai pas pu comprendre la réponse.";
-
-      const msgAI = document.createElement('div');
-      msgAI.classList.add('message-bulle', 'gauche');
-      msgAI.textContent = reponseIA;
-      chat.appendChild(msgAI);
-
-    } catch (error) {
-      console.error(error);
-      const msgError = document.createElement('div');
-      msgError.classList.add('message-bulle', 'gauche');
-      msgError.textContent = "⚠️ Erreur de connexion. Veuillez réessayer.";
-      chat.appendChild(msgError);
+    function messageInitial() {
+      const chat = document.getElementById('chatcontainer');
+      const reponse = document.createElement('div');
+      reponse.classList.add('message-bulle', 'gauche');
+      reponse.textContent =
+        "Bonjour ! Je suis GandxoAI, une IA créée par GBAGUIDI Exaucé. Posez-moi une question !";
+      chat.appendChild(reponse);
     }
 
-    chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
-  }
+    document.getElementById('messageInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') envoyerMessage();
+    });
 
-  window.onload = messageInitial;
+    async function envoyerMessage() {
+      const input = document.getElementById('messageInput');
+      const message = input.value.trim();
+      const chat = document.getElementById('chatcontainer');
+
+      if (!message) return;
+
+      // Message utilisateur
+      const msgUser = document.createElement('div');
+      msgUser.classList.add('message-bulle', 'droite');
+      msgUser.textContent = message;
+      chat.appendChild(msgUser);
+
+      input.value = '';
+      input.focus();
+
+      try {
+        const promptText = `Tu es GandxoAI, une IA créée par GBAGUIDI Exaucé. Réponds de manière concise : "${message}"`;
+
+        const response = await fetch(
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prompt: {
+                text: promptText
+              }
+            })
+          }
+        );
+
+        const data = await response.json();
+        console.log(data);
+
+        const reponseIA = data?.candidates?.[0]?.output?.content || "❌ Désolé, je n'ai pas pu comprendre la réponse.";
+
+        const msgAI = document.createElement('div');
+        msgAI.classList.add('message-bulle', 'gauche');
+        msgAI.textContent = reponseIA;
+        chat.appendChild(msgAI);
+      } catch (error) {
+        console.error(error);
+        const msgError = document.createElement('div');
+        msgError.classList.add('message-bulle', 'gauche');
+        msgError.textContent = "⚠️ Erreur de connexion. Veuillez réessayer.";
+        chat.appendChild(msgError);
+      }
+
+      chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
+    }
+
+    window.onload = messageInitial;
   </script>
 </body>
 </html>
