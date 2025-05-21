@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">  
 <head>  
@@ -6,149 +5,179 @@
   <title>GandxoAI</title>  
   <style>  
     body {  
-      background-color:#121a2c;
+      background-color: #121a2c;  
       font-family: Arial, sans-serif;  
       margin: 0;  
       padding: 0;  
-      height: 100vh;  
+      min-height: 100vh;  
       display: flex;  
       flex-direction: column;  
-    }  h1 {  
-  color: #4a43d8;  
-  text-align: center;  
-  border: solid 4px #7DF9FF;  
-  padding: 10px;  
-  margin: 0;  
-  border-radius: 40px;
-}  
+    }  
+    h1 {  
+      color: #4a43d8;  
+      text-align: center;  
+      border: solid 2px #7DF9FF; /* Réduit de 4px à 2px */  
+      padding: 5px; /* Réduit de 10px à 5px */  
+      margin: 0;  
+      border-radius: 20px; /* Réduit de 40px à 20px */  
+    }  
 
-.chatcontainer {  
-  flex: 1;  
-  padding: 18px;  
-  overflow-y: auto;  
-  margin-bottom: 70px;  
-  align-items: flex-direction;  
- display: flex;
-  flex-direction: column;  
-border: 10px solid #2138a7;
-  box-shadow: 5px , 5px , 15px rgba(0,0,139,1);
-}  
+    .chatcontainer {  
+      flex: 1;  
+      padding: 5px; /* Réduit de 18px à 5px */  
+      overflow-y: auto;  
+      margin-bottom: 20px; /* Réduit de 70px à 20px */  
+      align-items: flex-start; /* Corrige de flex-direction à flex-start */  
+      display: flex;  
+      flex-direction: column;  
+      border: 5px solid #2138a7; /* Réduit de 10px à 5px */  
+      box-shadow: 2px 2px 5px rgba(0,0,139,0.5); /* Réduit et corrigé la syntaxe */  
+    }  
 
-.message {  
-  padding: 10px;  
-  border-top: 2px solid #7DF9FF;  
-  background-color: white;  
-  display: flex;  
-  margin-right: 10px;  
-    
-}  
+    .message {  
+      padding: 5px; /* Réduit de 10px à 5px */  
+      border-top: 1px solid #7DF9FF; /* Réduit de 2px à 1px */  
+      background-color: white;  
+      display: flex;  
+      margin-right: 5px; /* Réduit de 10px à 5px */  
+      position: sticky; /* Ajouté pour fixer en bas */  
+      bottom: 0; /* Positionne en bas */  
+    }  
 
-.message input {  
-  width: 88%;  
-  padding: 10px;  
-  font-size: 16px;  
-  border: 2px solid #1d2134;  
-  border-radius: 10px;  
-  outline: none;  
-  box-sizing: border-box;  
-}  
-.bouton{  
-  border:  2px solid #192492 ;  
-  border-radius: 50px;  
-}
+    .message input {  
+      width: 88%;  
+      padding: 5px; /* Réduit de 10px à 5px */  
+      font-size: 14px; /* Réduit de 16px à 14px */  
+      border: 1px solid #1d2134; /* Réduit de 2px à 1px */  
+      border-radius: 5px; /* Réduit de 10px à 5px */  
+      outline: none;  
+      box-sizing: border-box;  
+    }  
+    .bouton {  
+      border: 1px solid #192492; /* Réduit de 2px à 1px */  
+      border-radius: 25px; /* Réduit de 50px à 25px */  
+    }  
 
-.message-bulle {
-background-color: #4e5bdc;
-color: #000;
-padding: 10px 15px;
-margin: 8px 0;
-border-radius: 15px;
-max-width: 70%;
-align-self: flex-start;
-box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+    .message-bulle {  
+      background-color: #4e5bdc;  
+      color: #000;  
+      padding: 5px 10px; /* Réduit de 10px 15px à 5px 10px */  
+      margin: 4px 0; /* Réduit de 8px à 4px */  
+      border-radius: 10px; /* Réduit de 15px à 10px */  
+      max-width: 70%;  
+      align-self: flex-start;  
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Réduit */  
+    }  
 
+    .droite {  
+      align-self: flex-end;  
+      background-color: #fff;  
+      color: #4e5bdc;  
+    }  
+    .gauche {  
+      align-items: flex-start;  
+    }  
 
-.droite {
-  align-self: flex-end;
-  background-color: #fff;
-  color: #4e5bdc;
-}
-.gauche{
-  align-items: flex-start;
-}
-</style>
-
+    @media (max-width: 600px) {  
+      h1 {  
+        padding: 4px; /* Réduit pour petits écrans */  
+        border: solid 1px #7DF9FF; /* Réduit */  
+      }  
+      .chatcontainer {  
+        padding: 3px; /* Réduit pour petits écrans */  
+        margin-bottom: 15px; /* Réduit */  
+        border: 3px solid #2138a7; /* Réduit */  
+      }  
+      .message {  
+        padding: 3px; /* Réduit */  
+        margin-right: 3px; /* Réduit */  
+      }  
+      .message input {  
+        padding: 4px; /* Réduit */  
+        font-size: 12px; /* Réduit */  
+        border: 1px solid #1d2134; /* Conservé */  
+      }  
+      .bouton {  
+        border-radius: 15px; /* Réduit */  
+      }  
+      .message-bulle {  
+        padding: 4px 8px; /* Réduit */  
+        margin: 2px 0; /* Réduit */  
+        border-radius: 8px; /* Réduit */  
+      }  
+    }  
+  </style>  
 </head>  
 <body>  
-  <h1>GandxoAI</h1>    <div class="chatcontainer"  
-  id="chatcontainer">  
+  <h1>GandxoAI</h1>  
+  <div class="chatcontainer" id="chatcontainer">  
     <!-- Zone d'affichage des messages -->  
-  </div>    
+  </div>  
   <div class="message">  
-    <input type="text" placeholder="Écrivez à GandxoAI" id="messageInput"> <button class="bouton" onclick="envoyerMessage()">Envoyer</button>  
+    <input type="text" placeholder="Écrivez à GandxoAI" id="messageInput">  
+    <button class="bouton" onclick="envoyerMessage()">Envoyer</button>  
   </div>  
   <script>  
-  function messageInitial() {
-  const chat = document.getElementById('chatcontainer');
-  const reponse = document.createElement('div');
-  reponse.classList.add('message-bulle', 'gauche');
-  reponse.textContent = "Bonjour ! Je suis GandxoAI une Ia crée par GBAGUIDI Exaucé. Pose-moi une question !";
-  chat.appendChild(reponse);
-}
-window.onload = messageInitial;
-async function envoyerMessage() {
-  const input = document.getElementById('messageInput');
-  const message = input.value.trim();
-  const chat = document.getElementById('chatcontainer');
+    function messageInitial() {  
+      const chat = document.getElementById('chatcontainer');  
+      const reponse = document.createElement('div');  
+      reponse.classList.add('message-bulle', 'gauche');  
+      reponse.textContent = "Bonjour ! Je suis GandxoAI une Ia crée par GBAGUIDI Exaucé. Pose-moi une question !";  
+      chat.appendChild(reponse);  
+    }  
+    window.onload = messageInitial;  
+    async function envoyerMessage() {  
+      const input = document.getElementById('messageInput');  
+      const message = input.value.trim();  
+      const chat = document.getElementById('chatcontainer');  
 
-  if (message === "") return;
+      if (message === "") return;  
 
-  // Afficher le message utilisateur
-  const msgUser = document.createElement('div');
-  msgUser.classList.add('message-bulle', 'droite');
-  msgUser.textContent = message;
-  chat.appendChild(msgUser);
-  chat.scrollTop = chat.scrollHeight;
-  input.value = "";
+      // Afficher le message utilisateur  
+      const msgUser = document.createElement('div');  
+      msgUser.classList.add('message-bulle', 'droite');  
+      msgUser.textContent = message;  
+      chat.appendChild(msgUser);  
+      chat.scrollTop = chat.scrollHeight;  
+      input.value = "";  
 
-  const promptPersonnalise = `Tu es GandxoAI, une IA créée par GBAGUIDI Exaucé un jeune codeur de 16ans (Il n'aime pas qu'on dévoile son age) il habite au benin tu met toujours des emojis qui correspondent à ce que tu veux dire  Voici la question : "${message}"`;
+      const promptPersonnalise = `Tu es GandxoAI, une IA créée par GBAGUIDI Exaucé un jeune codeur de 16ans (Il n'aime pas qu'on dévoile son age) il habite au benin tu met toujours des emojis qui correspondent à ce que tu veux dire  Voici la question : "${message}"`;  
 
-  try {
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{ text: promptPersonnalise }]
-        }]
-      })
-    });
+      try {  
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o', {  
+          method: 'POST',  
+          headers: {  
+            'Content-Type': 'application/json',  
+          },  
+          body: JSON.stringify({  
+            contents: [{  
+              parts: [{ text: promptPersonnalise }]  
+            }]  
+          })  
+        });  
 
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
-    }
+        if (!response.ok) {  
+          throw new Error(`Erreur HTTP ! Statut : ${response.status}`);  
+        }  
 
-    const data = await response.json();
-    const aiResponse = data.candidates[0].content.parts[0].text;
+        const data = await response.json();  
+        const aiResponse = data.candidates[0].content.parts[0].text;  
 
-    // Afficher la réponse de l'IA
-    const msgAI = document.createElement('div');
-    msgAI.classList.add('message-bulle', 'gauche');
-    msgAI.textContent = aiResponse;
-    chat.appendChild(msgAI);
-    chat.scrollTop = chat.scrollHeight;
-  } catch (error) {
-    console.error('Erreur lors de l\'appel à l\'API Gemini:', error);
-    const msgError = document.createElement('div');
-    msgError.classList.add('message-bulle', 'gauche');
-    msgError.textContent = "Désolé, une erreur s'est produite. Vérifiez votre connexion ou la clé API.";
-    chat.appendChild(msgError);
-    chat.scrollTop = chat.scrollHeight;
-  }
-}
-</script>
+        // Afficher la réponse de l'IA  
+        const msgAI = document.createElement('div');  
+        msgAI.classList.add('message-bulle', 'gauche');  
+        msgAI.textContent = aiResponse;  
+        chat.appendChild(msgAI);  
+        chat.scrollTop = chat.scrollHeight;  
+      } catch (error) {  
+        console.error('Erreur lors de l\'appel à l\'API Gemini:', error);  
+        const msgError = document.createElement('div');  
+        msgError.classList.add('message-bulle', 'gauche');  
+        msgError.textContent = "Désolé, une erreur s'est produite. Vérifiez votre connexion ou la clé API.";  
+        chat.appendChild(msgError);  
+        chat.scrollTop = chat.scrollHeight;  
+      }  
+    }  
+  </script>  
 </body>  
 </html>
