@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gandxo AI</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      background-color: #121a2c;
+      background-color: #121a2c; /* Bleu très foncé */
       font-family: Astro Sans-Serif;
       margin: 0;
       padding: 0;
@@ -21,13 +19,14 @@
     }
 
     h1 {
-      color: #4a43d8;
+      color: #00bfff; /* Bleu ciel vif */
       text-align: center;
-      border: solid 4px #1d53be;
+      border: solid 4px #4169e1; /* Bleu royal */
       padding: 10px;
       margin: 0;
-      border-radius: 40px;
+      border-radius: 20px;
       font-size: 1.8rem;
+      background-color: #1a2238; /* Bleu nuit légèrement plus clair */
     }
 
     .chatcontainer {
@@ -36,15 +35,15 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      border: 10px solid #2138a7;
-      box-shadow: 5px 5px 9px rgba(0, 0, 139, 1);
-      background-color: #f0f4ff;
+      border: 7px solid #223249; /* Bleu-gris foncé */
+      box-shadow: 5px 5px 12px rgba(0, 0, 64, 0.8);
+      background-color: #1b2331;
     }
 
     .message {
       display: flex;
       padding: 10px;
-      border-top: 2px solid #7DF9FF;
+      border-top: 2px solid #4682b4; /* Bleu acier */
       background-color: #121a2c;
       gap: 10px;
       flex-wrap: wrap;
@@ -57,14 +56,14 @@
       border: 2px solid #1d2134;
       border-radius: 10px;
       outline: none;
-      color: #000;
-      min-width: 0;
+      color: #fff;
+      background-color: #223249;
     }
 
     .bouton {
-      background-color: #13316d;
+      background-color: #1e3a8a; /* Bleu indigo */
       color: white;
-      border: 2px solid #192492;
+      border: 2px solid #274690; /* Bleu légèrement plus clair */
       border-radius: 50px;
       padding: 10px 15px;
       cursor: pointer;
@@ -72,22 +71,22 @@
     }
 
     .message-bulle {
-      background-color: #13316d;
-      color: #fff;
+      background-color: #1e3a8a;
+      color: #e0e6f8;
       padding: 10px 15px;
       margin: 8px 0;
       border-radius: 15px;
       max-width: 70%;
       align-self: flex-start;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 64, 0.4);
       word-wrap: break-word;
       font-size: 1rem;
     }
 
     .droite {
       align-self: flex-end;
-      background-color: #fff;
-      color: #4e5bdc;
+      background-color: #274690;
+      color: #d1d9ff;
     }
 
     @media screen and (max-width: 600px) {
@@ -100,8 +99,7 @@
         flex-direction: column;
       }
 
-      .message input,
-      .bouton {
+      .message input, .bouton {
         width: 100%;
         font-size: 1rem;
       }
@@ -112,17 +110,13 @@
       }
     }
   </style>
-
-  <!-- Marqueur Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
   <h1>Gandxo AI</h1>
-  <div class="chatcontainer" id="chatcontainer">
-    <!-- Zone d'affichage des messages -->
-  </div>
+  <div class="chatcontainer" id="chatcontainer"></div>
   <div class="message">
-    <input type="text" placeholder="Écrivez à Gandxo AI" id="messageInput">
+    <input type="text" placeholder="Écrivez à Gandxo AI" id="messageInput" />
     <button class="bouton" onclick="envoyerMessage()">Envoyer</button>
   </div>
 
@@ -131,7 +125,7 @@
       const chat = document.getElementById('chatcontainer');
       const reponse = document.createElement('div');
       reponse.classList.add('message-bulle');
-      reponse.innerHTML = marked.parse("👋 Bonjour ! Je suis **Gandxo AI**, une IA créée par *GBAGUIDI Exaucé*. Pose-moi une question !");
+      reponse.innerHTML = marked.parse("👋 Bonjour ! Je suis **Gandxo AI**, une IA créée par *GBAGUIDI Exaucé*. Pose-moi une question ! 💙");
       chat.appendChild(reponse);
     }
 
@@ -152,11 +146,50 @@
       input.value = "";
 
       const promptPersonnalise = `
-Tu es GandxoAi, un grand modèle de langage crée par GBAGUIDI Exaucé (Un béninois vivant à Cotonou) et développé par Google.
+Tu es GandxoAi, un grand modèle de langage développé par Google et conçu par GBAGUIDI Exaucé, un jeune béninois de Cotonou.
 
-Réponds avec du texte en Markdown (gras, italique, listes, titres, etc.).
+Tu réponds de façon conviviale, complice et respectueuse, comme un ami de confiance, avec parfois une touche d’humour appropriée selon le contexte. Tu utilises des **emojis adaptés** aux émotions transmises (ex : sourire, surprise, astuce, échec, encouragement, etc.).
 
-Voici la question : "${message}"`;
+Tu peux générer une réponse simple ou immersive selon le besoin :
+
+**Réponse chat :**
+- Brève, directe.
+- Pour des échanges rapides, clarifications, oui/non, remerciements, etc.
+
+**Réponse de types canvas :**
+- Pour des contenus longs ou éditables/exportables.
+- Inclut : critiques, codes, histoires, essais, résumés, analyses, applications web.
+
+**Structure d’un document immersif :**
+
+Texte :
+<immersive> id="{id_unique}" type="text/markdown" title="{titre_descriptif}"
+{contenu en Markdown}
+</immersive>
+
+Code :
+<immersive> id="{id_unique}" type="code" title="{titre_descriptif}"
+{code ici}
+</immersive>
+
+**Règles de style :**
+1. Introduction : Brève, amicale, jamais technique.
+2. Corps : Markdown bien structuré (titres, listes, emphases).
+3. Conclusion : Résume ou propose la suite (amélioration, action, idée).
+4. Utilise des **emojis adaptés** (mais jamais excessifs).
+5. Tu peux rédiger des blocs supplémentaires comme :
+
+- \`thought\` (réflexion personnelle ou plan d’action)
+- \`python\` (calculs ou visuels)
+- \`tool_code\` (code outil)
+
+**Exemples de bloc immersif :**
+
+- Pour un texte long → texte/markdown
+- Pour une app, code ou jeu → code/html ou code/react
+
+**Message de l'utilisateur :** "${message}"
+`;
 
       try {
         const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o', {
@@ -171,18 +204,17 @@ Voici la question : "${message}"`;
           })
         });
 
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
 
         const data = await response.json();
         const aiResponse = data.candidates[0].content.parts[0].text;
 
         const msgAI = document.createElement('div');
         msgAI.classList.add('message-bulle');
-        msgAI.innerHTML = marked.parse(aiResponse); // Markdown → HTML
+        msgAI.innerHTML = marked.parse(aiResponse);
         chat.appendChild(msgAI);
         chat.scrollTop = chat.scrollHeight;
+
       } catch (error) {
         console.error("Erreur API Gemini:", error);
         const msgError = document.createElement('div');
